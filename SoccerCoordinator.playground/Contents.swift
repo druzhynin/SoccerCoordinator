@@ -93,7 +93,7 @@ soccerLeague["Raptors"] = teamRaptors
 // ------------------------------------------------------------------------------------------
 // PART 3 of 3
 
-//This function froms and send letters to guardians depending to team parameter
+//This function forms letters to guardians depending to team parameter. Letters stored in collection.
 var lettersToGuardians: [String] = []
 
 func sendLettersToGuardians(nameOfTeam literalTeamName: String, teamInLeague dictionaryTeamName: Array <[String:Any]>) -> [String] {
@@ -109,7 +109,7 @@ func sendLettersToGuardians(nameOfTeam literalTeamName: String, teamInLeague dic
             default: practiceTime = "No such team in schedule"
         }
         
-        var letterText = "Dear, \(guardianName!)! \nI'm happy to inform you that \(playerName!) became a part of \(literalTeamName) Soccer Team. First practice is arranged on \(practiceTime). In case of any questions fill free to contact me. Phone number is 555-55-55!\n"
+        let letterText = "Dear, \(guardianName!)! \nI'm happy to inform you that \(playerName!) became a part of \(literalTeamName) Soccer Team. First practice is arranged on \(practiceTime). In case of any questions fill free to contact me. Phone number is 555-55-55!\n"
         lettersToGuardians.append(letterText)
     }
     return lettersToGuardians
