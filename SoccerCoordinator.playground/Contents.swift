@@ -94,8 +94,9 @@ soccerLeague["Raptors"] = teamRaptors
 // PART 3 of 3
 
 //This function froms and send letters to guardians depending to team parameter
+var lettersToGuardians: [String] = []
 
-func sendLettersToGuardians(nameOfTeam literalTeamName: String, teamInLeague dictionaryTeamName: Array <[String:Any]>) {
+func sendLettersToGuardians(nameOfTeam literalTeamName: String, teamInLeague dictionaryTeamName: Array <[String:Any]>) -> [String] {
     var practiceTime: String
     let teamInLeague = dictionaryTeamName
     for player in teamInLeague {
@@ -108,11 +109,18 @@ func sendLettersToGuardians(nameOfTeam literalTeamName: String, teamInLeague dic
             default: practiceTime = "No such team in schedule"
         }
         
-        print("Dear, \(guardianName!)! \nI'm happy to inform you that \(playerName!) became a part of \(literalTeamName) Soccer Team. First practice is arranged on \(practiceTime). In case of any questions fill free to contact me. Phone number is 555-55-55!\n")
+        var letterText = "Dear, \(guardianName!)! \nI'm happy to inform you that \(playerName!) became a part of \(literalTeamName) Soccer Team. First practice is arranged on \(practiceTime). In case of any questions fill free to contact me. Phone number is 555-55-55!\n"
+        lettersToGuardians.append(letterText)
     }
+    return lettersToGuardians
 }
+
 // Sending letter to guardians with using one function (totally DRY:) ) with different arguments
 
 sendLettersToGuardians(nameOfTeam: "Sharks", teamInLeague: teamSharks)
 sendLettersToGuardians(nameOfTeam: "Dragons", teamInLeague: teamDragons)
 sendLettersToGuardians(nameOfTeam: "Raptors", teamInLeague: teamRaptors)
+
+for letter in lettersToGuardians {
+    print(letter)
+}
