@@ -32,14 +32,14 @@ let players = [joeSmith, jillTanner, billBon, evaGordon, mattGill, kimmyStein, s
 // ------------------------------------------------------------------------------------------
 // PART 2 of 3
 
-// Defined empty variables for each team and league. experienced
+// Defined empty variables for each team and league, experienced and unexperienced players
 
-var sharksTeam: [[String:Any]] = []
-var dragonsTeam: [[String:Any]] = []
-var raptorsTeam: [[String:Any]] = []
+var teamSharks: [[String:Any]] = []
+var teamDragons: [[String:Any]] = []
+var teamRaptors: [[String:Any]] = []
 var hasExperience: [[String:Any]] = []
 var hasNoExperience: [[String:Any]] = []
-var soccerLeague = ["Sharks": sharksTeam, "Dragons": dragonsTeam, "Raptors": raptorsTeam]
+var soccerLeague = ["Sharks": teamSharks, "Dragons": teamDragons, "Raptors": teamRaptors]
 soccerLeague
 
 //Made a function that sorts players in two dictionaries depending on their experience
@@ -67,18 +67,18 @@ let maxUnexperiencedPlayersPerTeam = hasNoExperience.count / soccerLeague.count
 func assignExperiencedPlayersToTeams(listOfPlayers list: Array <[String:Any]>) {
     
     for player in list {
-        if sharksTeam.count < maxExperiencedPlayersPerTeam {
-            sharksTeam.append(player)
-        } else if dragonsTeam.count < maxExperiencedPlayersPerTeam {
-            dragonsTeam.append(player)
-        } else if raptorsTeam.count < maxExperiencedPlayersPerTeam {
-            raptorsTeam.append(player)
-        } else if sharksTeam.count < teamMaxCapacity {
-            sharksTeam.append(player)
-        } else if dragonsTeam.count < teamMaxCapacity {
-            dragonsTeam.append(player)
-        } else if raptorsTeam.count < teamMaxCapacity {
-                raptorsTeam.append(player)
+        if teamSharks.count < maxExperiencedPlayersPerTeam {
+            teamSharks.append(player)
+        } else if teamDragons.count < maxExperiencedPlayersPerTeam {
+            teamDragons.append(player)
+        } else if teamRaptors.count < maxExperiencedPlayersPerTeam {
+            teamRaptors.append(player)
+        } else if teamSharks.count < teamMaxCapacity {
+            teamSharks.append(player)
+        } else if teamDragons.count < teamMaxCapacity {
+            teamDragons.append(player)
+        } else if teamRaptors.count < teamMaxCapacity {
+                teamRaptors.append(player)
         }
     }
 }
@@ -86,98 +86,33 @@ func assignExperiencedPlayersToTeams(listOfPlayers list: Array <[String:Any]>) {
 assignExperiencedPlayersToTeams(listOfPlayers: hasExperience)
 assignExperiencedPlayersToTeams(listOfPlayers: hasNoExperience)
 
-soccerLeague["Sharks"] = sharksTeam
-soccerLeague["Dragons"] = dragonsTeam
-soccerLeague["Raptors"] = raptorsTeam
-soccerLeague
+soccerLeague["Sharks"] = teamSharks
+soccerLeague["Dragons"] = teamDragons
+soccerLeague["Raptors"] = teamRaptors
 
 // ------------------------------------------------------------------------------------------
 // PART 3 of 3
 
-func sendLettersToGuardians(nameOfTeam team: String) {
+//This function froms and send letters to guardians depending to team parameter
+
+func sendLettersToGuardians(nameOfTeam literalTeamName: String, teamInLeague dictionaryTeamName: Array <[String:Any]>) {
     var practiceTime: String
-    for player in [soccerLeague[team]] {
-        let playerName = [player["name"]]
+    let teamInLeague = dictionaryTeamName
+    for player in teamInLeague {
+        let playerName = player["name"]
         let guardianName = player["guardianNames"]
-        switch team {
+        switch literalTeamName {
             case "Sharks":  practiceTime = "March 17, 13:00"
             case "Dragons": practiceTime = "March 17, 15:00"
             case "Raptors": practiceTime = "March 18, 13:00"
             default: practiceTime = "No such team in schedule"
         }
         
-        print("Dear, \(guardianName!)! \nI'm happy to inform you that \(playerName!) became a part of \(team) Soccer Team. First practice is arranged on \(practiceTime). In case of any questions fill free to contact me. Phone number is 555-55-55!\n")
+        print("Dear, \(guardianName!)! \nI'm happy to inform you that \(playerName!) became a part of \(literalTeamName) Soccer Team. First practice is arranged on \(practiceTime). In case of any questions fill free to contact me. Phone number is 555-55-55!\n")
     }
 }
+// Sending letter to guardians with using one function (totally DRY:) ) with different arguments
 
-sendLettersToGuardians(nameOfTeam: "Sharks")
-sendLettersToGuardians(nameOfTeam: "Dragons")
-sendLettersToGuardians(nameOfTeam: "Raptors")
-
-
-/*
-func sendLettersToGuardians() {
-    for team in soccerLeague {
-        switch team {
-        case "Sharks":
-            var practiceTime: String
-            let playerName = sharksTeam["name"]
-            let guardianName = sharksTeam["guardianNames"]
-        case "Dragons":
-            print("Dragons!!!")
-        case "Raptors":
-            print("Raptors!")
-            default:
-                print("No such team!")
-        }
-    }
-}
-*/
-
-/*
-//Made a function that calculates players avarage height in inches *** But I really don't know how to use it in EXTRA CREDIT achivement ***
-func averageHeightOfPlayers() -> Int {
-    
-    var totalHeight = 0
-    for player in players {
-        totalHeight += player["heightInInches"] as! Int
-    }
-    
-    let averageHeight = totalHeight / players.count
-    return averageHeight
-}
-averageHeightOfPlayers()
-
-func averageHeightOfDragons() -> Int {
-    
-    var totalHeight = 0
-    for player in dragonsTeam {
-        totalHeight += player["heightInInches"] as! Int
-    }
-    
-    let averageHeight = totalHeight / dragonsTeam.count
-    return averageHeight
-}
-
-func averageHeightOfSharks() -> Int {
-    
-    var totalHeight = 0
-    for player in sharksTeam {
-        totalHeight += player["heightInInches"] as! Int
-    }
-    
-    let averageHeight = totalHeight / sharksTeam.count
-    return averageHeight
-}
-
-func averageHeightOfRaptors() -> Int {
-    
-    var totalHeight = 0
-    for player in raptorsTeam {
-        totalHeight += player["heightInInches"] as! Int
-    }
-    
-    let averageHeight = totalHeight / raptorsTeam.count
-    return averageHeight
-}
-*/
+sendLettersToGuardians(nameOfTeam: "Sharks", teamInLeague: teamSharks)
+sendLettersToGuardians(nameOfTeam: "Dragons", teamInLeague: teamDragons)
+sendLettersToGuardians(nameOfTeam: "Raptors", teamInLeague: teamRaptors)
